@@ -7,8 +7,7 @@ import java.net.Socket;
 class Server {
 
     public static void main(String args[])
-            throws Exception
-    {
+            throws Exception {
 
         // Create server Socket
         ServerSocket ss = new ServerSocket(123);
@@ -19,18 +18,15 @@ class Server {
         System.out.println("Please input a string to count the letters");
 
         // to send data to the client
-        PrintStream ps
-                = new PrintStream(s.getOutputStream());
+        PrintStream ps = new PrintStream(s.getOutputStream());
 
         // to read data coming from the client
-        BufferedReader br
-                = new BufferedReader(
+        BufferedReader br = new BufferedReader(
                 new InputStreamReader(
                         s.getInputStream()));
 
         // to read data from the keyboard
-        BufferedReader kb
-                = new BufferedReader(
+        BufferedReader kb = new BufferedReader(
                 new InputStreamReader(System.in));
         String str;
 
@@ -60,7 +56,7 @@ class Server {
         } // end of while
     }
 
-    public static int printAndCountLetters(String word){
+    public static int printAndCountLetters(String word) {
         int numberLetters = 0;
         for (int i = 0; i < word.length(); i++) {
             if (Character.isLetter(word.charAt(i)))
