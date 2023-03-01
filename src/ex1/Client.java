@@ -1,5 +1,7 @@
+package ex1;
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class Client {
 
@@ -18,28 +20,19 @@ public class Client {
                                 new InputStreamReader(
                                                 s.getInputStream()));
 
-                // to read data from the keyboard
-                BufferedReader kb = new BufferedReader(
-                                new InputStreamReader(System.in));
-                String str, str1;
 
-                // repeat as long as exit
-                // is not typed at client
-                while (!(str = kb.readLine()).equals("exit")) {
+                Scanner keyboard = new Scanner(System.in);
+                System.out.println("Please input a string to count the letters");
+                String str = keyboard.nextLine();
+                dos.writeBytes(str + "\n");
 
-                        // send to the server
-                        dos.writeBytes(str + "\n");
-
-                        // receive from the server
-                        str1 = br.readLine();
-
-                        System.out.println(str1);
-                }
+                // receive from the server
+                String responseMessage = br.readLine();
+                System.out.println(responseMessage);
 
                 // close connection.
                 dos.close();
                 br.close();
-                kb.close();
                 s.close();
         }
 }

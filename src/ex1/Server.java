@@ -1,3 +1,4 @@
+package ex1;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -15,7 +16,6 @@ class Server {
         // connect it to client socket
         Socket s = ss.accept();
         System.out.println("Connection established");
-        System.out.println("Please input a string to count the letters");
 
         // to send data to the client
         PrintStream ps = new PrintStream(s.getOutputStream());
