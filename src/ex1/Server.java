@@ -7,53 +7,51 @@ import java.net.Socket;
 
 class Server {
 
-    public static void main(String args[])
-            throws Exception {
+    public static void main(String args[]) throws Exception {
 
         // Create server Socket
         ServerSocket ss = new ServerSocket(123);
 
-        // connect it to client socket
+        // Accept incoming connections from clients
         Socket s = ss.accept();
         System.out.println("Connection established");
+        System.out.println("For the first incoming input, press Enter to see the result on the screen and send a response to the client.");
 
-        // to send data to the client
-        PrintStream ps = new PrintStream(s.getOutputStream());
+        // Send data to client
+        PrintStream output = new PrintStream(s.getOutputStream());
 
-        // to read data coming from the client
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                        s.getInputStream()));
+        // Get data from client
+        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
         // to read data from the keyboard
-        BufferedReader kb = new BufferedReader(
-                new InputStreamReader(System.in));
-        String str;
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+
+        String word;
 
         // server executes until exit is typed
-        while (!(str = kb.readLine()).equals("exit")) {
+        while (!(word = keyboard.readLine()).equals("exit")) {
 
             // read from client
-            while ((str = br.readLine()) != null) {
-                System.out.println(str);
-                int number = printAndCountLetters(str);
-                System.out.println("The word " + str + " has " + number + " letters.");
+            while ((word = input.readLine()) != null) {
+                // Print the word coming from client
+                System.out.println(word);
+                // Count letters of word
+                int number = printAndCountLetters(word);
 
-                // send to client
-                ps.println(number);
+                // Send response to client
+                output.println(number);
             }
 
-            // close connection
-            ps.close();
-            br.close();
-            kb.close();
+            // Close connection
+            output.close();
+            input.close();
+            keyboard.close();
             ss.close();
             s.close();
 
-            // terminate application
+            // Close application
             System.exit(0);
-
-        } // end of while
+        }
     }
 
     public static int printAndCountLetters(String word) {
